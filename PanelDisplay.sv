@@ -1,4 +1,4 @@
-module PanelDisplay (//boomer
+module PanelDisplay (//OK Boomer
 	input  logic clk,
 	input  logic rst,
 	
