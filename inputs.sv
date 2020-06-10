@@ -18,7 +18,7 @@ module inputs
 //Creating 1 bit signals,  which will act as input to our Connect 4 Game - thus replacing the keyboard
 //We will implement a Rising Edge Detector for each one of the players' available moves (Left - Right - Put )
 logic left_out;
-debouncing left_b(
+debounce left_b(
   .clk          (clk),
   .rst          (rst),
   .signal_in    (left),
@@ -26,7 +26,7 @@ debouncing left_b(
 );
 
 logic right_out;
-debouncing          right_b(
+debounce          right_b(
   .clk					(clk),
   .rst					(rst),
   .signal_in		(right),
@@ -34,7 +34,7 @@ debouncing          right_b(
 );
 
 logic           put_out;
-debouncing          put_b(
+debounce          put_b(
   .clk					(clk),
   .rst					(rst),
   .signal_in		(put),

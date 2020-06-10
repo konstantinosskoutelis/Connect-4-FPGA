@@ -1,4 +1,4 @@
-module debouncing
+module debounce
 #(
   parameter delay = 15
 )
