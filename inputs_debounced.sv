@@ -61,7 +61,7 @@ end
 
 // Debouncing Output Signals
 assign left_pulse = (|counter)? 1'b0 : left_out;
-assign right_pulse = (|counter)? 1'b0 : right_out;
-assign put_pulse = (|counter)? 1'b0 : put_out;
+assign right_pulse = (|counter | left_pulse)? 1'b0 : right_out;
+assign put_pulse = (|counter | left_pulse | right_pulse)? 1'b0 : put_out;
 
 endmodule
