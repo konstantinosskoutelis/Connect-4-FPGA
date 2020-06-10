@@ -1,4 +1,4 @@
-module inputs_debounced
+module inputs_debounced //MASTER
 #(
   parameter delay = 15
 )
