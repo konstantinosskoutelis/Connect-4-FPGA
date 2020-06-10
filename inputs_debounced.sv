@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 module inputs_debounced// SKOU
+=======
+module inputs_debounced //MASTER
+>>>>>>> a8bea916813d970caebe93cfe4125fd936f09e3c
 #(
   parameter delay = 15
 )
