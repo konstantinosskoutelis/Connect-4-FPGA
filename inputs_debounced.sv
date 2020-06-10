@@ -1,4 +1,4 @@
-module inputs
+module inputs_debounced
 #(
   parameter delay = 15
 )
@@ -15,10 +15,9 @@ module inputs
   output logic put_pulse
 );
 
-//Creating 1 bit signals,  which will act as input to our Connect 4 Game - thus replacing the keyboard
-//We will implement a Rising Edge Detector for each one of the players' available moves (Left - Right - Put )
+// Synchronizer & Falling Edge Detector for each of the player's moves (Left - Right - Put)
 logic left_out;
-debouncing left_b(
+pulse_input left_b(
   .clk          (clk),
   .rst          (rst),
   .signal_in    (left),
@@ -26,7 +25,7 @@ debouncing left_b(
 );
 
 logic right_out;
-debouncing right_b(
+pulse_input right_b(
   .clk          (clk),
   .rst          (rst),
   .signal_in    (right),
@@ -34,14 +33,14 @@ debouncing right_b(
 );
 
 logic put_out;
-debouncing put_b(
+pulse_input put_b(
   .clk          (clk),
   .rst          (rst),
   .signal_in    (put),
   .signal_out   (put_out)
 );
 
-// Debouncing
+// Debounce counter
 logic[delay-1:0] counter;
 always_ff @(posedge clk, negedge rst) begin
   if (!rst) begin
@@ -59,9 +58,10 @@ always_ff @(posedge clk, negedge rst) begin
     endcase
   end
 end
-// Output Signal
+
+// Debouncing Output Signals
 assign left_pulse = (|counter)? 1'b0 : left_out;
-assign right_pulse = (|counter)? 1'b0 : right_out;
-assign put_pulse = (|counter)? 1'b0 : put_out;
+assign right_pulse = (|counter | left_pulse)? 1'b0 : right_out;
+assign put_pulse = (|counter | left_pulse | right_pulse)? 1'b0 : put_out;
 
 endmodule
