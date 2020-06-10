@@ -1,4 +1,4 @@
-module color_palette(
+module color_palette(//SKOUTELIS
   input logic[2:0] rgb,
   
   output logic[3:0] red,

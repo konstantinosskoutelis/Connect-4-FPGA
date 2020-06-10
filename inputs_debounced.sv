@@ -1,4 +1,4 @@
-module inputs_debounced
+module inputs_debounced //SKOUTELIS
 #(
   parameter delay = 15
 )
@@ -39,7 +39,6 @@ pulse_input put_b(
   .signal_in    (put),
   .signal_out   (put_out)
 );
-
 // Debounce counter
 logic[delay-1:0] counter;
 always_ff @(posedge clk, negedge rst) begin
