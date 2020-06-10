@@ -1,4 +1,4 @@
-module PanelDisplay (
+module PanelDisplay (//boomer
 	input  logic clk,
 	input  logic rst,
 	
@@ -77,13 +77,13 @@ color_palette CP(
 
 // Sprites
 logic[12:0] t_addr;
-logic[2:0] t_data;
+logic t_data;
 token_sprite token(
   .addr   (t_addr),
   .data   (t_data)
 );
 logic[12:0] w_addr;
-logic[2:0] w_data;
+logic w_data;
 winner_sprite win(
   .addr   (w_addr),
   .data   (w_data)
@@ -102,29 +102,28 @@ always_comb begin
     rgb = 0;
   end else if (count_horizontal>=510 && count_horizontal<520) begin
     rgb = 0;
-  end else if (count_horizontal>=530 && count_horizontal<620 && count_vertical>=20 && count_vertical<74) begin //SCOREBOARD    
-    if (~&w_data) begin
-      if (&w_data[2:1]) begin
-        case(winner)
-          2'b00: begin
-            rgb = w_data;
-          end
-          2'b01: begin
-            rgb = 3'b010;
-          end
-          2'b10: begin
-            rgb = 3'b100;
-          end
-			 default: begin 
-				rgb = w_data;
-			 end
-        endcase
-      end else begin
-        rgb = w_data;
+  end else if (count_horizontal>=530 && count_horizontal<620 && count_vertical>=20 && count_vertical<74) begin //SCOREBOARD        
+    if (w_data) begin
+      case(winner)
+        2'b00: begin
+          //rgb = {w_data,2'b10};
+          rgb = 3'b110;
+        end
+        2'b01: begin
+          rgb = 3'b010;
+          //rgb = 3'b010;
+        end
+        2'b10: begin
+          rgb = 3'b100;
+          //rgb = 3'b100;
+        end
+      default: begin 
+      rgb = {~w_data,2'b10};
       end
-    end else begin //ADDED ELSE BLOCK
-		rgb = w_data;
-	 end	 
+      endcase
+    end else begin
+      rgb = {w_data,2'b01};//Winner Sprite background Coloring  
+    end
   end else begin
     rgb = 3'b001;		
   end
@@ -137,7 +136,7 @@ always_comb begin
       for (int j=0; j<=6; j++) begin
         h_start = 20+(70*j);
         if(count_horizontal>=h_start && count_horizontal<h_start+offset) begin          
-          if (~t_data[0]) begin
+          if (~t_data) begin
             rgb = {panel[5-i][j],1'b0};
           end
         end
