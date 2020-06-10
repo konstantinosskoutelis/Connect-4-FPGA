@@ -1,4 +1,4 @@
-module score4 (
+module score4 ( //Margom
 	input  logic clk,
 	input  logic rst,
 
