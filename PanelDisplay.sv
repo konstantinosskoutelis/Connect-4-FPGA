@@ -38,7 +38,7 @@ always_ff @(posedge clk, negedge rst) begin
         799: begin
           count_horizontal <= 0;
           case(count_vertical)
-            523: begin
+            526: begin
               count_vertical <= 0;
             end
             default begin
@@ -89,20 +89,18 @@ winner_sprite win(
   .data   (w_data)
 );
 
-
 //coloring
 localparam offset = 60;
-int v_start;
-int h_start;
 
 always_comb begin
+
   w_addr = ((count_vertical-20)*90)+(count_horizontal-530);
   // Borders & background - check
   if (count_vertical>=440 || count_horizontal>=630 || count_vertical<10 || count_horizontal<10) begin
     rgb = 0;
   end else if (count_horizontal>=510 && count_horizontal<520) begin
     rgb = 0;
-  end else if (count_horizontal>=530 && count_horizontal<620 && count_vertical>=20 && count_vertical<74) begin //SCOREBOARD        
+  end else if (count_horizontal>=530 && count_horizontal<620 && count_vertical>=20 && count_vertical<74) begin //SCOREBOARD
     if (w_data) begin
       case(winner)
         2'b00: begin
@@ -127,25 +125,20 @@ always_comb begin
   end else begin
     rgb = 3'b001;		
   end
-  
-  // Game panel 
-  t_addr = ((count_vertical-v_start)*60)+(count_horizontal-h_start);  
-  for (int i=0; i<=5; i++) begin
-    v_start = 20+(70*i);
-    if(count_vertical>=v_start && count_vertical<v_start+offset) begin
-      for (int j=0; j<=6; j++) begin
-        h_start = 20+(70*j);
-        if(count_horizontal>=h_start && count_horizontal<h_start+offset) begin          
-          if (~t_data) begin
-            rgb = {panel[5-i][j],1'b0};
-          end
+
+  t_addr = 0;
+  for (int i=0; i<=5; i++) begin 
+    for (int j=0; j<=6; j++) begin      
+      if(v_pos[i] & h_pos[j])  begin
+        //rgb = {panel[5-i][j],1'b0};
+        t_addr = ((count_vertical-(20+(70*i)))*60)+(count_horizontal-(20+(70*j)));
+        if (~t_data) begin
+          rgb = {panel[5-i][j],1'b0};
         end
       end
-    end else begin 
-	   h_start = 0;
-	 end
+    end
   end
-  
+
   // Player position - check
   if(count_vertical>=(450) && count_vertical<(470)) begin
     for (int j=0; j<=6; j++) begin
@@ -156,6 +149,27 @@ always_comb begin
           rgb = 3'b100;
         end
       end
+    end
+  end
+end
+
+logic [5:0] v_pos;
+logic [6:0] h_pos;
+
+always_comb begin
+  for (int i=0; i<=5; i++) begin
+    if(count_vertical>=20+(70*i) && count_vertical<20+(70*i)+offset ) begin
+      v_pos[i]=1;
+    end else begin
+      v_pos[i]=0;
+    end
+  end
+
+  for (int j=0; j<=6; j++) begin
+    if(count_horizontal>=20+(70*j) && count_horizontal<20+(70*j)+offset) begin
+      h_pos[j]=1;
+    end else begin
+      h_pos[j]=0;
     end
   end
 end
