@@ -26,7 +26,7 @@ module score4 (
 // Pulse Inputs
 logic left_pulse, right_pulse, put_pulse;
 
-inputs inputs(
+inputs_debounced inputs(
 	.clk         (clk),
 	.rst   		    (rst),
 	.left  		    (left),

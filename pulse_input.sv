@@ -1,7 +1,4 @@
-module debouncing
-#(
-  parameter delay = 15
-)
+module pulse_input
 (
   input logic clk,
   input logic rst,
@@ -32,7 +29,7 @@ always_ff @(posedge clk, negedge rst) begin
   end
 end
 
-// Output SignalS
+// Output Signal
 assign signal_out = ~sync[0] & signal_reg;
 
 endmodule
