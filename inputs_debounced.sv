@@ -1,4 +1,4 @@
-module inputs_debounced//SKOU
+module inputs_debounced// SKOU
 #(
   parameter delay = 15
 )
