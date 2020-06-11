@@ -66,22 +66,19 @@ assign vsync = (v_counter >= 491 && v_counter <= 492)? '0 : '1;
 
 // Color mapping
 logic[2:0] rgb;
-color_palette CP(
-  .rgb    (rgb),
-  .red    (red),
-  .green  (green),
-  .blue   (blue)
-  );
+assign red = {4{rgb[2]}};
+assign green = {4{rgb[1]}};
+assign blue = {4{rgb[0]}};
 
 // Sprites
 logic[12:0] t_addr;
-logic[2:0] t_data;
+logic t_data;
 token_sprite token(
   .addr   (t_addr),
   .data   (t_data)
 );
 logic[12:0] w_addr;
-logic[2:0] w_data;
+logic w_data;
 winner_sprite win(
   .addr   (w_addr),
   .data   (w_data)
@@ -97,45 +94,39 @@ always_comb begin
   w_addr = ((v_counter-20)*90)+(h_counter-530);
   // Borders & background - check
   if (v_counter>=440 || h_counter>=630 || v_counter<10 || h_counter<10) begin
-    rgb = 0;
+    rgb = 3'b000;
   end else if (h_counter>=510 && h_counter<520) begin
-    rgb = 0;
+    rgb = 3'b000;
   end else if (h_counter>=530 && h_counter<620 && v_counter>=20 && v_counter<74) begin //SCOREBOARD    
-    if (~&w_data) begin
-      if (&w_data[2:1]) begin
-        case(winner)
-          2'b00: begin
-            rgb = w_data;
-          end
-          2'b01: begin
-            rgb = 3'b010;
-          end
-          2'b10: begin
-            rgb = 3'b100;
-          end
-       default: begin 
-        rgb = w_data;
-       end
-        endcase
-      end else begin
-        rgb = w_data;
-      end
+    if (w_data) begin
+      case(winner)
+        2'b01: begin
+          rgb = 3'b010;
+        end
+        2'b10: begin
+          rgb = 3'b100;
+        end
+        default: begin 
+          rgb = 3'b110;
+        end
+      endcase
     end else begin //ADDED ELSE BLOCK
-    rgb = w_data;
-   end   
+      rgb = 3'b001;
+    end
   end else begin
     rgb = 3'b001;    
   end
   
   // Game panel 
-  t_addr = ((v_counter-v_start)*60)+(h_counter-h_start);  
+  t_addr = 0;
   for (int i=0; i<=5; i++) begin
     v_start = 20+(70*i);
     if(v_counter>=v_start && v_counter<v_start+offset) begin
       for (int j=0; j<=6; j++) begin
         h_start = 20+(70*j);
-        if(h_counter>=h_start && h_counter<h_start+offset) begin          
-          if (~t_data[0]) begin
+        if(h_counter>=h_start && h_counter<h_start+offset) begin  
+          t_addr = ((v_counter-v_start)*60)+(h_counter-h_start);         
+          if (~t_data) begin
             rgb = {panel[5-i][j],1'b0};
           end
         end

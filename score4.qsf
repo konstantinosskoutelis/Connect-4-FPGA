@@ -70,16 +70,25 @@ set_location_assignment PIN_B11 -to vsync
 
 set_location_assignment PIN_L1 -to clk
 set_location_assignment PIN_R22 -to rst
+
 set_location_assignment PIN_R21 -to right
 set_location_assignment PIN_T22 -to put
 set_location_assignment PIN_T21 -to left
+
+set_location_assignment PIN_R17 -to invalid_move
+set_location_assignment PIN_R20 -to player
+set_location_assignment PIN_Y18 -to win_a
+set_location_assignment PIN_V19 -to win_b
+set_location_assignment PIN_T18 -to full_panel
+
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
-set_global_assignment -name SYSTEMVERILOG_FILE input.sv
-set_global_assignment -name SYSTEMVERILOG_FILE debouncing.sv
 set_global_assignment -name SYSTEMVERILOG_FILE winner_sprite.sv
 set_global_assignment -name SYSTEMVERILOG_FILE token_sprite.sv
 set_global_assignment -name SYSTEMVERILOG_FILE score4_tb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE score4.sv
+set_global_assignment -name SYSTEMVERILOG_FILE pulse_input.sv
 set_global_assignment -name SYSTEMVERILOG_FILE PanelDisplay.sv
-set_global_assignment -name SYSTEMVERILOG_FILE color_palette.sv
+set_global_assignment -name SYSTEMVERILOG_FILE inputs_debounced.sv
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

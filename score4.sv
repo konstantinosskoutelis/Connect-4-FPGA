@@ -84,7 +84,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[0]][0][turn] <= 1'b1;
-            position[0] <= position[0] + 1;
+            position[0] <= position[0] + 1'b1;
           end
         end
         7'b0000010: begin
@@ -92,7 +92,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[1]][1][turn] <= 1'b1;
-            position[1] <= position[1] + 1;
+            position[1] <= position[1] + 1'b1;
           end
         end
         7'b0000100: begin
@@ -100,7 +100,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[2]][2][turn] <= 1'b1;
-            position[2] <= position[2] + 1;
+            position[2] <= position[2] + 1'b1;
           end
         end
         7'b0001000: begin
@@ -108,7 +108,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[3]][3][turn] <= 1'b1;
-            position[3] <= position[3] + 1;
+            position[3] <= position[3] + 1'b1;
           end
         end
         7'b0010000: begin
@@ -116,7 +116,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[4]][4][turn] <= 1'b1;
-            position[4] <= position[4] + 1;
+            position[4] <= position[4] + 1'b1;
           end
         end
         7'b0100000: begin
@@ -124,7 +124,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[5]][5][turn] <= 1'b1;
-            position[5] <= position[5] + 1;
+            position[5] <= position[5] + 1'b1;
           end
      	  end
      	  7'b1000000: begin
@@ -132,7 +132,7 @@ always_ff @(posedge clk, negedge rst) begin
             invalid_move <= 1;
           end else begin
             panel[position[6]][6][turn] <= 1'b1;
-            position[6] <= position[6] + 1;
+            position[6] <= position[6] + 1'b1;
           end
    	    end
  	    endcase
