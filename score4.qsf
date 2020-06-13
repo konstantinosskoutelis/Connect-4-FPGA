@@ -74,6 +74,7 @@ set_location_assignment PIN_R21 -to right
 set_location_assignment PIN_T22 -to put
 set_location_assignment PIN_T21 -to left
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name SYSTEMVERILOG_FILE communa.sv
 set_global_assignment -name SYSTEMVERILOG_FILE winner_sprite.sv
 set_global_assignment -name SYSTEMVERILOG_FILE token_sprite.sv
 set_global_assignment -name SYSTEMVERILOG_FILE score4_tb.sv
@@ -82,4 +83,13 @@ set_global_assignment -name SYSTEMVERILOG_FILE pulse_input.sv
 set_global_assignment -name SYSTEMVERILOG_FILE PanelDisplay.sv
 set_global_assignment -name SYSTEMVERILOG_FILE inputs_debounced.sv
 set_global_assignment -name SYSTEMVERILOG_FILE color_palette.sv
+set_location_assignment PIN_Y18 -to win_a
+set_location_assignment PIN_V19 -to win_b
+set_location_assignment PIN_A13 -to send
+set_location_assignment PIN_B14 -to right_data
+set_location_assignment PIN_B13 -to receive
+set_location_assignment PIN_A14 -to left_data
+set_location_assignment PIN_U18 -to player
+set_location_assignment PIN_R18 -to invalid_move
+set_location_assignment PIN_R20 -to full_panel
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

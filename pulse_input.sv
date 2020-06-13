@@ -1,11 +1,9 @@
-module pulse_input
-(
+module inputs(
   input logic clk,
   input logic rst,
-
   input logic signal_in,
-
-  output logic signal_out
+  output logic pulse_out,
+  output logic constant_out
 );
 
 // Bit Synchronizer
@@ -29,7 +27,10 @@ always_ff @(posedge clk, negedge rst) begin
   end
 end
 
-// Output Signal
-assign signal_out = ~sync[0] & signal_reg;
+// Pulse Output
+assign pulse_out = ~sync[0] & signal_reg;
+
+//Constant Output
+assign constant_out = sync[0];
 
 endmodule

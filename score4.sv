@@ -4,8 +4,12 @@ module score4 (
 
 	input  logic left,
 	input  logic right,
-	input  logic put,
-	
+  input  logic put,  
+  input logic receive,
+
+  output logic send,
+  inout wire left_data,right_data,	
+
 	output logic player,
 	output logic invalid_move,
 	output logic win_a,
@@ -25,16 +29,20 @@ module score4 (
 
 // Pulse Inputs
 logic left_pulse, right_pulse, put_pulse;
-
 inputs_debounced inputs(
 	.clk         (clk),
-	.rst   		    (rst),
+  .rst   		    (rst),
+  .receive      (receive),
+  .turn         (turn),
 	.left  		    (left),
 	.right 		    (right),
 	.put   		    (put),
 	.left_pulse  (left_pulse),
 	.right_pulse (right_pulse),
-	.put_pulse   (put_pulse)
+  .put_pulse   (put_pulse),
+  .send         (send),
+  .left_data     (left_data),
+  .right_data     (right_data)
 );
 
 
