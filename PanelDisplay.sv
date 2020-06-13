@@ -106,16 +106,13 @@ always_comb begin
     if (w_data) begin
       case(winner)
         2'b00: begin
-          //rgb = {w_data,2'b10};
           rgb = 3'b110;
         end
         2'b01: begin
           rgb = 3'b010;
-          //rgb = 3'b010;
         end
         2'b10: begin
           rgb = 3'b100;
-          //rgb = 3'b100;
         end
       default: begin 
       rgb = {~w_data,2'b10};
@@ -125,17 +122,17 @@ always_comb begin
       rgb = {w_data,2'b01};//Winner Sprite background Coloring  
     end
   end else begin
-    rgb = 3'b001;		
+    rgb = 3'b001;
   end
-  
-  // Game panel 
+
+  // Game panel
   t_addr = ((count_vertical-v_start)*60)+(count_horizontal-h_start);  
   for (int i=0; i<=5; i++) begin
     v_start = 20+(70*i);
     if(count_vertical>=v_start && count_vertical<v_start+offset) begin
       for (int j=0; j<=6; j++) begin
         h_start = 20+(70*j);
-        if(count_horizontal>=h_start && count_horizontal<h_start+offset) begin          
+        if(count_horizontal>=h_start && count_horizontal<h_start+offset) begin
           if (~t_data) begin
             rgb = {panel[5-i][j],1'b0};
           end
