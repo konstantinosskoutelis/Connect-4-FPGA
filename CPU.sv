@@ -1,11 +1,12 @@
-module PanelDisplay (
+module PanelDisplay
+(
 	input  logic clk,
 	input  logic rst,
 	
 	input logic[5:0][6:0][1:0] panel,
 	input logic[6:0] play,
 	input logic player,
-	input logic[1:0] winner,
+	input logic[1:0] winner
 );
 
 logic[5:0][6:0][2:0] test;
@@ -36,4 +37,6 @@ always_comb begin
       end
     end
   end
+  
+endmodule
   

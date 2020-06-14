@@ -1,48 +1,49 @@
 module score4 (
-	input  logic clk,
-	input  logic rst,
+  input logic clk,
+  input logic rst,
 
-	input  logic left,
-	input  logic right,
-  input  logic put,  
-  input logic receive,
+  // Self actions
+  input logic left,
+  input logic right,
+  input logic put,
 
+  // Communication and opponent actions
+  inout wire left_data,
+  inout wire right_data,
+  input logic receive,  // Put_data
   output logic send,
-  inout wire left_data,right_data,	
 
-	output logic player,
-	output logic invalid_move,
-	output logic win_a,
-	output logic win_b,
-	output logic full_panel,
+  // Output signals
+  output logic player,
+  output logic invalid_move,
+  output logic win_a,
+  output logic win_b,
+  output logic full_panel,
 
-	output logic hsync,
-	output logic vsync,
-	output logic [3:0] red,
-	output logic [3:0] green,
-	output logic [3:0] blue	
+  // Display signals
+  output logic hsync,
+  output logic vsync,
+  output logic [3:0] red,
+  output logic [3:0] green,
+  output logic [3:0] blue
 );
-//TODO 
-// 1. Sprites - 1bit
-// 2. Winner change color 
-// 3. VGA columns correction
 
-// Pulse Inputs
+// Synchronize inputs
 logic left_pulse, right_pulse, put_pulse;
 inputs_debounced inputs(
-	.clk         (clk),
-  .rst   		    (rst),
-  .receive      (receive),
-  .turn         (turn),
-	.left  		    (left),
-	.right 		    (right),
-	.put   		    (put),
-	.left_pulse  (left_pulse),
-	.right_pulse (right_pulse),
-  .put_pulse   (put_pulse),
-  .send         (send),
+  .clk           (clk),
+  .rst           (rst),
+  .receive       (receive),
+  .turn          (turn),
+  .left          (left),
+  .right         (right),
+  .put           (put),
+  .left_pulse    (left_pulse),
+  .right_pulse   (right_pulse),
+  .put_pulse     (put_pulse),
+  .send          (send),
   .left_data     (left_data),
-  .right_data     (right_data)
+  .right_data    (right_data)
 );
 
 
@@ -60,7 +61,7 @@ always_ff @(posedge clk, negedge rst) begin
     play <= 7'b0000001;
     turn <= 0;
   end else begin
-		//Circular rotation of active column ( OUT OF BORDERS Scenario ) 
+    //Circular rotation of active column ( OUT OF BORDERS Scenario ) 
     play <= (left_pulse&~play[0])?   play>>1:
             (left_pulse&play[0])?   7'b1000000:
             (right_pulse&~play[6])?  play<<1:
@@ -81,7 +82,7 @@ always_ff @(posedge clk, negedge rst) begin
     panel <= 0;
     position <= 0;
     invalid_move <= 0;
-	 win_a <= 0;
+   win_a <= 0;
     win_b <= 0;
   end else begin
     invalid_move <= 0;
@@ -134,73 +135,73 @@ always_ff @(posedge clk, negedge rst) begin
             panel[position[5]][5][turn] <= 1'b1;
             position[5] <= position[5] + 1;
           end
-     	  end
-     	  7'b1000000: begin
-     	    if (position[6]==6) begin
+         end
+         7'b1000000: begin
+           if (position[6]==6) begin
             invalid_move <= 1;
           end else begin
             panel[position[6]][6][turn] <= 1'b1;
             position[6] <= position[6] + 1;
           end
-   	    end
- 	    endcase
- 	  end
-	  //add other always ff
-	  if (~win_a && ~win_b) begin
-		win_a <= |test_a;
-		win_b <= |test_b;
-		//if i kai j
-		  //Horizontal coloring
-		for (int i=0;i<=5;i++) begin
-			for (int j=0;j<=3;j++) begin
-				if(test_a[i][j][0] || test_b[i][j][0]) begin
-					panel[i][j]   <= 2'b11;
-					panel[i][j+1] <= 2'b11;
-					panel[i][j+2] <= 2'b11;
-					panel[i][j+3] <= 2'b11;
-				end				
-			end
-		end
-		
-		//Vertical coloring			
-		for (int i=0;i<=2;i++) begin
-		  for (int j=0;j<=6;j++) begin
-			 if(test_a[i][j][1] || test_b[i][j][1]) begin
-				panel[i][j]   <= 2'b11;
-				panel[i+1][j] <= 2'b11;
-				panel[i+2][j] <= 2'b11;
-				panel[i+3][j] <= 2'b11;
-			 end			 
-		  end
-		end
-		
-		//Diagonal
-		for (int i=0;i<=2;i++) begin
-		  for (int j=3;j>=0;j--) begin
-			 if(test_a[i][j][2] || test_b[i][j][2]) begin
-				if(i<=2) begin 
-				  panel[i][j]     <= 2'b11;
-				  panel[i+1][j+1] <= 2'b11;
-				  panel[i+2][j+2] <= 2'b11;
-				  panel[i+3][j+3] <= 2'b11;
-				end   
-			 end
-		  end
-		end
-		
-		for (int i=3;i<=5;i++) begin
-			for (int j=0;j<=3;j++) begin
-			  if(test_a[i][j][2] || test_b[i][j][2]) begin
-				 if(i>2) begin 
-					panel[i][j]     <= 2'b11;
-					panel[i-1][j+1] <= 2'b11;
-					panel[i-2][j+2] <= 2'b11;
-					panel[i-3][j+3] <= 2'b11;
-				 end 				
-			  end
-			end
-		end	      
-	 end
+         end
+       endcase
+     end
+    //add other always ff
+    if (~win_a && ~win_b) begin
+    win_a <= |test_a;
+    win_b <= |test_b;
+    //if i kai j
+      //Horizontal coloring
+    for (int i=0;i<=5;i++) begin
+      for (int j=0;j<=3;j++) begin
+        if(test_a[i][j][0] || test_b[i][j][0]) begin
+          panel[i][j]   <= 2'b11;
+          panel[i][j+1] <= 2'b11;
+          panel[i][j+2] <= 2'b11;
+          panel[i][j+3] <= 2'b11;
+        end        
+      end
+    end
+    
+    //Vertical coloring      
+    for (int i=0;i<=2;i++) begin
+      for (int j=0;j<=6;j++) begin
+       if(test_a[i][j][1] || test_b[i][j][1]) begin
+        panel[i][j]   <= 2'b11;
+        panel[i+1][j] <= 2'b11;
+        panel[i+2][j] <= 2'b11;
+        panel[i+3][j] <= 2'b11;
+       end       
+      end
+    end
+    
+    //Diagonal
+    for (int i=0;i<=2;i++) begin
+      for (int j=3;j>=0;j--) begin
+       if(test_a[i][j][2] || test_b[i][j][2]) begin
+        if(i<=2) begin 
+          panel[i][j]     <= 2'b11;
+          panel[i+1][j+1] <= 2'b11;
+          panel[i+2][j+2] <= 2'b11;
+          panel[i+3][j+3] <= 2'b11;
+        end   
+       end
+      end
+    end
+    
+    for (int i=3;i<=5;i++) begin
+      for (int j=0;j<=3;j++) begin
+        if(test_a[i][j][2] || test_b[i][j][2]) begin
+         if(i>2) begin 
+          panel[i][j]     <= 2'b11;
+          panel[i-1][j+1] <= 2'b11;
+          panel[i-2][j+2] <= 2'b11;
+          panel[i-3][j+3] <= 2'b11;
+         end         
+        end
+      end
+    end        
+   end
   end
 end
 
@@ -252,17 +253,17 @@ logic[1:0] winner;
 assign winner = {win_b, win_a};
 
 PanelDisplay VGA(
-	.clk         (clk),
-	.rst   		    (rst),
-	.panel       (panel),
-	.play        (play),
-	.player      (player),
-	.winner      (winner),
-	.hsync 		    (hsync),
-	.vsync 		    (vsync),
-	.red   		    (red),
-	.green 		    (green),
-	.blue  		    (blue)
+  .clk         (clk),
+  .rst           (rst),
+  .panel       (panel),
+  .play        (play),
+  .player      (player),
+  .winner      (winner),
+  .hsync         (hsync),
+  .vsync         (vsync),
+  .red           (red),
+  .green         (green),
+  .blue          (blue)
 );
 
 endmodule

@@ -25,6 +25,8 @@
 *~
 *example*
 *sopc_*
+*.cr.mti*
+*.wlf*
 # *.sdc # I want those timing files
 
 # ignore Quartus II generated folders
@@ -35,3 +37,4 @@ timing/
 testbench/
 *_sim/
 hc_output
+work/
