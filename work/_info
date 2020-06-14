@@ -1,0 +1,71 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\altera\13.0sp1
+vinput_handling
+Z1 DXx6 sv_std 3 std 0 22 F[19LRNL:5;XmIFh[XOPn1
+Z2 !s100 iSDWiMC5U1U_Z<304Qjm12
+Z3 IX7^P0[i12g@_FIn?=HJJd1
+Z4 VP<`^j`8z4e8GngXRT5oG83
+Z5 !s105 input_handling_sv_unit
+S1
+Z6 dC:\Users\User\Desktop\GitHub_Projects\Connect-4-FPGA
+Z7 w1592158529
+Z8 8C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_handling.sv
+Z9 FC:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_handling.sv
+L0 4
+Z10 OV;L;10.1d;51
+r1
+31
+Z11 !s108 1592158532.450000
+Z12 !s107 C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_handling.sv|
+Z13 !s90 -reportprogress|300|-work|work|-sv|C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_handling.sv|
+Z14 o-work work -sv -O0
+!i10b 1
+!s85 0
+!s101 -O0
+vinput_sync
+R1
+!i10b 1
+Z15 !s100 Bb^Z<SUi5W]@CXg?ULXjl2
+Z16 IGO6TN=ERTHmmSW_hZV0o20
+Z17 VUA2]okADo?B=zGk6`JEai2
+Z18 !s105 input_sync_sv_unit
+S1
+R6
+Z19 w1592156482
+Z20 8C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv
+Z21 FC:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv
+L0 6
+R10
+r1
+!s85 0
+31
+!s108 1592158532.536000
+!s107 C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv|
+Z22 !s90 -reportprogress|300|-work|work|-sv|C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv|
+!s101 -O0
+R14
+vtb
+R1
+Z23 IGD6;HeJaJk5M2=mcj4@Rk0
+Z24 VV@Xn<HnSRM[I5c1?BH]3a3
+R5
+S1
+R6
+R7
+R8
+R9
+Z25 L0 106
+R10
+r1
+31
+R11
+R12
+R13
+R14
+!i10b 1
+Z26 !s100 2D0><G^Md5L1h271fC1T40
+!s85 0
+!s101 -O0
