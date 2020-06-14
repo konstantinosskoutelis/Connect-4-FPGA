@@ -4,7 +4,6 @@ module pulse_input
   input logic rst,
 
   input logic signal_in,
-
   output logic signal_out
 );
 

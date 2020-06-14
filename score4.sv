@@ -19,9 +19,9 @@ module score4 (
 	output logic [3:0] blue	
 );
 //TODO 
-// 1. Sprites - 1bit
-// 2. Winner change color 
-// 3. VGA columns correction
+// 1. Sprites - 1bit  --> done
+// 2. Winner change color ---> done
+// 3. VGA columns correction 
 
 // Pulse Inputs
 logic left_pulse, right_pulse, put_pulse;
