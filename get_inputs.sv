@@ -17,15 +17,48 @@ module get_inputs
   output logic [2:0] lrp_opponent
 );
 
-// Reduce data rate of self input by 2^N
+// Input from opponent
+logic [2:0] lrp_data_edge;
+input_sync #(.inv(1'b0)) left_dataline
+(
+  .clk(clk),
+  .rst(rst),
+  .enable(1'b1),
+  .signal_in(left_data),
+  .signal_out(lrp_data_edge[2])
+);
+input_sync #(.inv(1'b0)) right_dataline
+(
+  .clk(clk),
+  .rst(rst),
+  .enable(1'b1),
+  .signal_in(right_data),
+  .signal_out(lrp_data_edge[1])
+);
+input_sync #(.inv(1'b0)) receive_dataline
+(
+  .clk(clk),
+  .rst(rst),
+  .enable(1'b1),
+  .signal_in(receive_data),
+  .signal_out(lrp_data_edge[0])
+);
+
+// Extend opponent signals over 2^N cycles
+// Synchronize self and opponent data rates
 logic [N-1:0] counter;
 logic enable;
 assign enable = &counter;
 always_ff @(posedge clk, negedge rst) begin
   if (!rst) begin
+    lrp_opponent <= '0;
     counter <= '0;
   end else begin
     counter <= counter + 1'b1;
+    if (|lrp_data_edge | enable) begin
+      lrp_opponent <= lrp_data_edge;
+      counter2 <= '0;
+    end
   end
 end
 
@@ -60,51 +93,6 @@ input_sync put_button
 assign lrp_self[2] = lrp_edge[2];
 assign lrp_self[1] = lrp_edge[1] & ~lrp_edge[2];
 assign lrp_self[0] = lrp_edge[0] & ~lrp_edge[1] &~lrp_edge[2];
-
-// Input from opponent
-logic [2:0] lrp_data_edge;
-input_sync #(.inv(1'b0)) left_dataline
-(
-  .clk(clk),
-  .rst(rst),
-  .enable(1'b1),
-  .signal_in(left_data),
-  .signal_out(lrp_data_edge[2])
-);
-input_sync #(.inv(1'b0)) right_dataline
-(
-  .clk(clk),
-  .rst(rst),
-  .enable(1'b1),
-  .signal_in(right_data),
-  .signal_out(lrp_data_edge[1])
-);
-input_sync #(.inv(1'b0)) receive_dataline
-(
-  .clk(clk),
-  .rst(rst),
-  .enable(1'b1),
-  .signal_in(receive_data),
-  .signal_out(lrp_data_edge[0])
-);
-
-// Extend opponent signals over 2^N cycles
-// Synchronize self and opponent data rate
-logic [N-1:0] counter2;
-logic enable2;
-assign enable2 = &counter2;
-always_ff @(posedge clk, negedge rst) begin
-  if (!rst) begin
-    lrp_opponent <= '0;
-    counter2 <= '0;
-  end else begin
-    counter2 <= counter2 + 1'b1;
-    if (|lrp_data_edge | enable2) begin
-      lrp_opponent <= lrp_data_edge;
-      counter2 <= '0;
-    end
-  end
-end
 
 endmodule
 
