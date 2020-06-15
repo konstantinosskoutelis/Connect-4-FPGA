@@ -2,7 +2,7 @@ library verilog;
 use verilog.vl_types.all;
 entity input_sync is
     generic(
-        inv             : integer := 1
+        inv             : vl_logic := Hi1
     );
     port(
         clk             : in     vl_logic;

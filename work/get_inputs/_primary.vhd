@@ -1,8 +1,7 @@
 library verilog;
 use verilog.vl_types.all;
-entity input_handling is
+entity get_inputs is
     generic(
-        inv             : integer := 1;
         N               : integer := 6
     );
     port(
@@ -11,11 +10,12 @@ entity input_handling is
         left            : in     vl_logic;
         right           : in     vl_logic;
         put             : in     vl_logic;
-        lrp             : out    vl_logic_vector(2 downto 0);
-        l_64            : out    vl_logic;
-        r_64            : out    vl_logic
+        lrp_self        : out    vl_logic_vector(2 downto 0);
+        left_data       : in     vl_logic;
+        right_data      : in     vl_logic;
+        receive_data    : in     vl_logic;
+        lrp_opponent    : out    vl_logic_vector(2 downto 0)
     );
     attribute mti_svvh_generic_type : integer;
-    attribute mti_svvh_generic_type of inv : constant is 1;
     attribute mti_svvh_generic_type of N : constant is 1;
-end input_handling;
+end get_inputs;

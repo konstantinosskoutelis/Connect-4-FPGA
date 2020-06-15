@@ -1,65 +1,44 @@
-// Reduced input data rate by 2^N
-// One hot encoding for player's input
-
-module input_handling
-#(
-  parameter inv = 1,
-  parameter N = 6
-)
+module input_enemy
 (
   input logic clk,
   input logic rst,
 
   input logic left,
   input logic right,
-  input logic put,
+  input logic receive,
 
   output logic [2:0] lrp,
   output logic l_64,
   output logic r_64
 );
 
-// Reduced data rate
-logic[N-1:0] counter;
-always_ff @(posedge clk, negedge rst) begin
-  if (!rst) begin
-    counter <= '0;
-  end else begin
-    counter <= counter + 1'b1;
-  end
-end
-logic enable;
-assign enable = &counter;
-logic enable2;
-assign enable2 = ~(|counter);
-
-// Input from player - Left/Right/Put
+// Input from enemy - Left/Right/Put
 logic left_synced;
-input_sync #(.inv(inv)) left_button
+input_sync #(.inv(0)) left_enemy
 (
   .clk(clk),
   .rst(rst),
-  .enable(enable),
+  .enable(1'b1),
   .signal_in(left),
   .signal_out(left_synced)
 );
 logic right_synced;
-input_sync #(.inv(inv)) right_button
+input_sync #(.inv(0)) right_enemy
 (
   .clk(clk),
   .rst(rst),
-  .enable(enable),
+  .enable(1'b1),
   .signal_in(right),
   .signal_out(right_synced)
 );
-logic put_synced;
-input_sync #(.inv(inv)) put_button
+logic receive_synced;
+input_sync #(.inv(0)) receive_enemy
 (
   .clk(clk),
   .rst(rst),
-  .enable(enable),
-  .signal_in(put),
-  .signal_out(put_synced)
+  .enable(1'b1),
+  .signal_in(receive),
+  .signal_out(receive_synced)
 );
 
 // Pulse output
@@ -85,19 +64,6 @@ assign lrp[2] = left_pulse;
 assign lrp[1] = right_pulse & ~left_pulse;
 assign lrp[0] = put_pulse & ~right_pulse & ~left_pulse;
 
-// One hot pulse extension
-logic left_hold, right_hold;
-always_ff @(posedge clk, negedge rst) begin
-  if (!rst) begin
-    left_hold <= '0;
-    right_hold <= '0;
-  end else begin
-    if (enable2) begin
-      left_hold <= left_pulse;;
-      right_hold <= right_pulse & ~left_pulse;;
-    end
-  end
-end
 // One hot output for communication
 assign l_64 = left_hold;
 assign r_64 = right_hold;

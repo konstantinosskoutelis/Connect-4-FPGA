@@ -1,11 +1,6 @@
-// Synchronizer for signals from
-//      different clock domains
-// Enable signal is used for a
-//      slower input data rate
-
 module input_sync
 #(
-  parameter inv = 1
+  parameter inv = 1'b1
 )
 (
   input logic clk,
@@ -17,23 +12,20 @@ module input_sync
 );
 
 // Bit synchronizer & edge detector
-logic[1:0] sync;
+logic [2:0] sync;
 always_ff @(posedge clk, negedge rst) begin
   if (!rst) begin
-    sync <= '0;
+    sync <= {3{inv}};
   end else begin
     if (enable) begin
-      if (inv) begin
-        sync[1] <= ~signal_in;
-      end else begin
-        sync[1] <= signal_in;
-      end
+      sync[2] <= signal_in;
+      sync[1] <= sync[2];
       sync[0] <= sync[1];
     end
   end
 end
 
 // Output signal
-assign signal_out = sync[0];
+assign signal_out = ~sync[1] & sync[0];
 
 endmodule
