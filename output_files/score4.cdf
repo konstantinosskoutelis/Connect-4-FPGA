@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP2C20F484) Path("E:/old_quartus/workspace/score4/output_files/") File("score4.sof") MfrSpec(OpMask(1));
+		Device PartName(EP2C20F484) Path("C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/output_files/") File("score4.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 
