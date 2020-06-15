@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-module score4 ( //Margom
-	input  logic clk,
-	input  logic rst,
-=======
+
 module score4 (
   input logic clk,
   input logic rst,
->>>>>>> e157bb8e6f4187d05e95d8d7287fe003f0f1ac5a
 
   // Self actions
   input logic left,
