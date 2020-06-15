@@ -67,10 +67,13 @@ end
   rst = 0;
   repeat(2) @(posedge clk);
   rst = 1;
-  repeat(4) @(posedge clk);
+  repeat(40) @(posedge clk);
   $display("~~~~~~~~ START ~~~~~~~~\n");
   left2 = 0;
   left1 = 0;
+  repeat(10) @(posedge clk);
+  left2 = 0;
+  left1 = 1;
   repeat(10) @(posedge clk);
   left2 = 1;
   left1 = 1;
