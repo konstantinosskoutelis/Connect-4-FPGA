@@ -3,7 +3,7 @@ module communication
     input logic clk,
     input logic rst,
     input logic receive,
-    input logic player,
+    input logic turn,
     output logic send,
     output logic restart
  );
@@ -30,30 +30,12 @@ always_ff@(posedge clk, negedge rst) begin
         send <= turn;
         restart <= 0;
       end
-      end
     endcase
   end
 end
-
-always_ff@(posedge clk, negedge rst) begin
-  if (!rst) begin
-        counter[5:3] <= '0;
-    end else begin
-        counter[5:3] <= counter[5:3] +1;
-        if(counter[5:3] == 6)begin
-            counter[5:3]<=0;
-        end
-    end
- end
  
 
 
-assign counter[1] = receive_p;
-assign counter[2] = active;
-
-assign counter[7] = right_data;
-assign counter[8] = send;
-assign counter[9] = left_data;
 
 endmodule
  

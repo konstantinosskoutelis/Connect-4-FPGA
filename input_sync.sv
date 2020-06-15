@@ -29,3 +29,25 @@ end
 assign signal_out = ~sync[1] & sync[0];
 
 endmodule
+
+module edge_detect (
+  input signal,
+  input clk,
+  input rst,
+
+  output pulse
+);
+
+logic ff;
+always_ff @(posedge clk, negedge rst) begin
+  if (!rst) begin
+    ff <= 0;
+  end else begin
+    ff <= signal ;
+  end
+end
+
+assign pulse = ~ff & signal;
+
+
+endmodule

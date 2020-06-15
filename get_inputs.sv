@@ -18,14 +18,13 @@ module get_inputs
 );
 
 // Input from opponent
-logic [2:0] lrp_data_edge;
 input_sync #(.inv(1'b0)) left_dataline
 (
   .clk(clk),
   .rst(rst),
   .enable(1'b1),
   .signal_in(left_data),
-  .signal_out(lrp_data_edge[2])
+  .signal_out(lrp_opponent[2])
 );
 input_sync #(.inv(1'b0)) right_dataline
 (
@@ -33,7 +32,7 @@ input_sync #(.inv(1'b0)) right_dataline
   .rst(rst),
   .enable(1'b1),
   .signal_in(right_data),
-  .signal_out(lrp_data_edge[1])
+  .signal_out(lrp_opponent[1])
 );
 input_sync #(.inv(1'b0)) receive_dataline
 (
@@ -41,7 +40,7 @@ input_sync #(.inv(1'b0)) receive_dataline
   .rst(rst),
   .enable(1'b1),
   .signal_in(receive_data),
-  .signal_out(lrp_data_edge[0])
+  .signal_out(lrp_opponent[0])
 );
 
 // Extend opponent signals over 2^N cycles
@@ -51,14 +50,9 @@ logic enable;
 assign enable = &counter;
 always_ff @(posedge clk, negedge rst) begin
   if (!rst) begin
-    lrp_opponent <= '0;
     counter <= '0;
   end else begin
     counter <= counter + 1'b1;
-    if (|lrp_data_edge | enable) begin
-      lrp_opponent <= lrp_data_edge;
-      counter <= '0;
-    end
   end
 end
 

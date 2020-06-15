@@ -29,7 +29,7 @@ module score4 (
 );
 
 // Synchronize inputs
-logic left_pulse, right_pulse, put_pulse;
+logic left_pulse1, right_pulse1, put_pulse1;
 logic left_pulse2, right_pulse2, put_pulse2;
 get_inputs inputs
 (
@@ -38,11 +38,11 @@ get_inputs inputs
   .left           (left),
   .right          (right),
   .put            (put),
-  .lrp_self       ({left_pulse,right_pulse,put_pulse),
+  .lrp_self       ({left_pulse1,right_pulse1,put_pulse1}),
   .left_data      (left_data),
   .right_data     (right_data),
   .receive_data   (receive),
-  .lpr_opponent   ({left_pulse2,right_pulse2,put_pulse2)
+  .lrp_opponent   ({left_pulse2,right_pulse2,put_pulse2})
 );
 
 // Dataline driver
@@ -50,8 +50,8 @@ dataline_driver d_drive
 (
   .send     (send),
   .receive  (put_pulse2),
-  .lr_in    ({left_pulse,right_pulse})
-  .lr_out   ({left_pulse2,right_pulse2})
+  .lr_in    ({left_pulse1,right_pulse1}),
+  .lr_out   ({left_data,right_data})
 );
 
 // Communication logic
@@ -61,10 +61,37 @@ communication comms
   .clk        (clk),
   .rst        (rst),
   .receive    (put_pulse2),
-  .player     (turn),
+  .turn     (turn),
   .send       (send),
   .restart    (restart)
 );
+
+logic left_pulse3, right_pulse3, put_pulse3;
+edge_detect ed_det_self(
+  .clk        (clk),
+  .rst        (rst),
+  .signal    (left_pulse1),
+  .pulse     (left_pulse3)
+);
+edge_detect ed_det_self2(
+  .clk        (clk),
+  .rst        (rst),
+  .signal    (right_pulse1),
+  .pulse     (right_pulse3)
+);
+edge_detect ed_det_self3(
+  .clk        (clk),
+  .rst        (rst),
+  .signal    (put_pulse1),
+  .pulse     (put_pulse3)
+);
+
+logic left_pulse, right_pulse, put_pulse;
+
+assign left_pulse = turn ? left_pulse3 : left_pulse2;
+assign right_pulse = turn ? right_pulse3 : right_pulse2;
+assign put_pulse = turn ? put_pulse3 : put_pulse2;
+
 
 // Game State
 //logic[10:0][12:0][1:0] panel;//tha to allakso
