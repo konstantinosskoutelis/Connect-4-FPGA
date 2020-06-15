@@ -27,6 +27,7 @@
 *sopc_*
 *.cr.mti*
 *.wlf*
+*.vstf*
 # *.sdc # I want those timing files
 
 # ignore Quartus II generated folders
