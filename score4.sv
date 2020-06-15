@@ -30,22 +30,41 @@ module score4 (
 
 // Synchronize inputs
 logic left_pulse, right_pulse, put_pulse;
-inputs_debounced inputs(
-  .clk           (clk),
-  .rst           (rst),
-  .receive       (receive),
-  .turn          (turn),
-  .left          (left),
-  .right         (right),
-  .put           (put),
-  .left_pulse    (left_pulse),
-  .right_pulse   (right_pulse),
-  .put_pulse     (put_pulse),
-  .send          (send),
-  .left_data     (left_data),
-  .right_data    (right_data)
+logic left_pulse2, right_pulse2, put_pulse2;
+get_inputs inputs
+(
+  .clk            (clk),
+  .rst            (rst),
+  .left           (left),
+  .right          (right),
+  .put            (put),
+  .lrp_self       ({left_pulse,right_pulse,put_pulse),
+  .left_data      (left_data),
+  .right_data     (right_data),
+  .receive_data   (receive),
+  .lpr_opponent   ({left_pulse2,right_pulse2,put_pulse2)
 );
 
+// Dataline driver
+dataline_driver d_drive
+(
+  .send     (send),
+  .receive  (put_pulse2),
+  .lr_in    ({left_pulse,right_pulse})
+  .lr_out   ({left_pulse2,right_pulse2})
+);
+
+// Communication logic
+logic restart;
+communication comms
+(
+  .clk        (clk),
+  .rst        (rst),
+  .receive    (put_pulse2),
+  .player     (turn),
+  .send       (send),
+  .restart    (restart)
+);
 
 // Game State
 //logic[10:0][12:0][1:0] panel;//tha to allakso

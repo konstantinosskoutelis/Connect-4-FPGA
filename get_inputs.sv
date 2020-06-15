@@ -57,7 +57,7 @@ always_ff @(posedge clk, negedge rst) begin
     counter <= counter + 1'b1;
     if (|lrp_data_edge | enable) begin
       lrp_opponent <= lrp_data_edge;
-      counter2 <= '0;
+      counter <= '0;
     end
   end
 end
@@ -68,7 +68,7 @@ input_sync left_button
 (
   .clk(clk),
   .rst(rst),
-  .enable(enable2),
+  .enable(enable),
   .signal_in(left),
   .signal_out(lrp_edge[2])
 );
@@ -76,7 +76,7 @@ input_sync right_button
 (
   .clk(clk),
   .rst(rst),
-  .enable(enable2),
+  .enable(enable),
   .signal_in(right),
   .signal_out(lrp_edge[1])
 );
@@ -84,7 +84,7 @@ input_sync put_button
 (
   .clk(clk),
   .rst(rst),
-  .enable(enable2),
+  .enable(enable),
   .signal_in(put),
   .signal_out(lrp_edge[0])
 );

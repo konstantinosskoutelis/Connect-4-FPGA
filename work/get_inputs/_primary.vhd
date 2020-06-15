@@ -2,7 +2,7 @@ library verilog;
 use verilog.vl_types.all;
 entity get_inputs is
     generic(
-        N               : integer := 6
+        N               : integer := 3
     );
     port(
         clk             : in     vl_logic;

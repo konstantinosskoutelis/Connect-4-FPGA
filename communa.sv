@@ -8,16 +8,6 @@ module communication
     output logic restart
  );
 
-// Input from other console
-logic receive_synced;
-input_sync #(.inv(1)) receive_line
-(
-  .clk(clk),
-  .rst(rst),
-  .enable(enable),
-  .signal_in(receive),
-  .signal_out(receive_synced)
-);
 
 // Handshake principle ({send, receive}):
 //    01 or 10: connection established

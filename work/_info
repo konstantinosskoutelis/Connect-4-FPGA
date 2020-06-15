@@ -5,25 +5,25 @@ cModel Technology
 Z0 dC:\altera\13.0sp1
 vget_inputs
 Z1 DXx6 sv_std 3 std 0 22 F[19LRNL:5;XmIFh[XOPn1
-Z2 ICZiI`PYR:lA:d1VR:k`Po1
-Z3 VMTaFmnX_KW?G9[M6@cSUR3
-Z4 !s105 get_inputs_sv_unit
+Z2 !s100 ?B9E8V^959Hckf;2SlMZ32
+Z3 INLCMHHg_zIlGA6Enm0?[P0
+Z4 V:0hTX<CVAEQFJanX1@>CW2
+Z5 !s105 get_inputs_sv_unit
 S1
-Z5 dC:\Users\User\Desktop\GitHub_Projects\Connect-4-FPGA
-Z6 w1592193205
-Z7 8C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv
-Z8 FC:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv
+Z6 dC:\Users\User\Desktop\GitHub_Projects\Connect-4-FPGA
+Z7 w1592228268
+Z8 8C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv
+Z9 FC:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv
 L0 1
-Z9 OV;L;10.1d;51
+Z10 OV;L;10.1d;51
 r1
 31
-Z10 !s108 1592193207.253000
-Z11 !s107 C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv|
-Z12 !s90 -reportprogress|300|-work|work|-sv|C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv|
-Z13 o-work work -sv -O0
+Z11 !s90 -reportprogress|300|-work|work|-sv|C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv|
+Z12 o-work work -sv -O0
 !i10b 1
-Z14 !s100 :klmXW^6:gCAMY^^bOMUd0
 !s85 0
+Z13 !s108 1592228274.908000
+Z14 !s107 C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/get_inputs.sv|
 !s101 -O0
 vinput_sync
 R1
@@ -33,39 +33,39 @@ Z16 Igm:hMTVT4Q<NFX`FeF6][1
 Z17 VcG?ca5MD38[G39>AMC[b60
 Z18 !s105 input_sync_sv_unit
 S1
-R5
+R6
 Z19 w1592190515
 Z20 8C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv
 Z21 FC:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv
 L0 1
-R9
+R10
 r1
 !s85 0
 31
-!s108 1592193207.349000
+!s108 1592228274.973000
 !s107 C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv|
 Z22 !s90 -reportprogress|300|-work|work|-sv|C:/Users/User/Desktop/GitHub_Projects/Connect-4-FPGA/input_sync.sv|
 !s101 -O0
-R13
+R12
 vtb
 R1
 Z23 I0m[zV[mHaG8`TPK`ziDi72
 Z24 VV@Xn<HnSRM[I5c1?BH]3a3
-R4
-S1
 R5
+S1
 R6
-R7
+Z25 w1592193205
 R8
-Z25 L0 110
 R9
+Z26 L0 110
+R10
 r1
 31
-R10
+Z27 !s108 1592193207.253000
+R14
 R11
 R12
-R13
+Z28 !s100 cabkgf<<;GidW77gVfkXY3
 !i10b 1
-Z26 !s100 cabkgf<<;GidW77gVfkXY3
 !s85 0
 !s101 -O0
